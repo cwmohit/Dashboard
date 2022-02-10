@@ -4,24 +4,20 @@ import { DatePicker, Checkbox, Badge, Spin } from "antd";
 import moment from "moment";
 const { RangePicker } = DatePicker;
 
-let AvailableColumns = [
-  { name: "Date", slug: "date" },
-  { name: "App Name", slug: "app_name" },
-  { name: "Clicks", slug: "clicks" },
-  { name: "Ad Requests", slug: "requests" },
-  { name: "Ad Responses", slug: "responses" },
-  { name: "Impression", slug: "impressions" },
-  { name: "Revenue", slug: "revenue" },
-  { name: "Fill Rate", slug: "fill_rate" },
-];
-
-function DynamicTable({ apps, columns, setColumns }) {
+function DynamicTable({
+  apps,
+  columns,
+  setColumns,
+  options,
+  selectedCol,
+  setSelectedCol,
+  defaultDateRange,
+  availableColumns,
+}) {
   const [data, setData] = useState([]);
-  const [selectedCol, setSelectedCol] = useState(["date", "app_name"]);
-  const [dateRange, setDateRange] = useState(["2021-01-01", "2021-01-31"]);
+  const [dateRange, setDateRange] = useState(defaultDateRange);
   const [isLoading, setIsLoading] = useState(false);
-  const [isOpenSettings, setIsOpenSettings] = useState(false);
-  console.log(apps);
+  const [isOpenSettings, setIsOpenSettings] = useState(true);
   const getAppName = (id) => {
     let index = apps.findIndex((app) => app.app_id === id);
     return apps[index].app_name;
@@ -50,8 +46,8 @@ function DynamicTable({ apps, columns, setColumns }) {
 
   function disabledDate(current) {
     // Can not select days before today and today
-    let start = "2021-01-01";
-    let end = "2021-01-31";
+    let start = defaultDateRange[0];
+    let end = defaultDateRange[1];
     if (current < moment(start)) {
       return true;
     } else if (current > moment(end)) {
@@ -61,91 +57,20 @@ function DynamicTable({ apps, columns, setColumns }) {
     }
   }
 
-  const getPosition = (val) => {
-    return selectedCol.includes(val) ? selectedCol.indexOf(val) + 1 : "";
-  };
-
   const setRangeFilter = (val) => {
     let start = moment(val[0]).format("YYYY-MM-DD");
     let end = moment(val[1]).format("YYYY-MM-DD");
     setDateRange([start, end]);
   };
 
-  const options = [
-    {
-      label: (
-        <>
-          Date <Badge count={getPosition("date")} />
-        </>
-      ),
-      value: "date",
-    },
-    {
-      label: (
-        <>
-          App <Badge count={getPosition("app_name")} />
-        </>
-      ),
-      value: "app_name",
-    },
-    {
-      label: (
-        <>
-          Clicks <Badge count={getPosition("clicks")} />
-        </>
-      ),
-      value: "clicks",
-    },
-    {
-      label: (
-        <>
-          Ad Requests <Badge count={getPosition("requests")} />
-        </>
-      ),
-      value: "requests",
-    },
-    {
-      label: (
-        <>
-          Ad Responses <Badge count={getPosition("responses")} />
-        </>
-      ),
-      value: "responses",
-    },
-    {
-      label: (
-        <>
-          Impression <Badge count={getPosition("impressions")} />
-        </>
-      ),
-      value: "impressions",
-    },
-    {
-      label: (
-        <>
-          Revenue <Badge count={getPosition("revenue")} />
-        </>
-      ),
-      value: "revenue",
-    },
-    {
-      label: (
-        <>
-          Fill Rate <Badge count={getPosition("fill_rate")} />
-        </>
-      ),
-      value: "fill_rate",
-    },
-  ];
-
   const onApplyFilters = () => {
     _getTableData();
 
     let selected = selectedCol.map((item) => {
-      let index = AvailableColumns.findIndex((col) => col.slug === item);
+    let index = availableColumns.findIndex((col) => col.slug === item);
 
       return {
-        ...AvailableColumns[index],
+        ...availableColumns[index],
       };
     });
 

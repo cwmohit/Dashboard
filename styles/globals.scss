@@ -73,6 +73,12 @@ a {
   .font-weight-bold{
     font-weight: bold;
   }
+  .analytics-btn-contain{
+    button{
+      border-radius: 25px;
+      padding: 10px 20px;
+    }
+  }
 }
 
 @media screen and (max-width: 480px) {
