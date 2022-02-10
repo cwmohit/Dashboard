@@ -1,0 +1,82 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.app {
+  background: #f7fbff;
+  .first-layer {
+    min-height: 250px;
+    .ant-picker.ant-picker-range {
+      max-width: 250px;
+    }
+    .main-filters {
+      .ant-checkbox-group {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+      .ant-checkbox-group-item,
+       .ant-checkbox-wrapper {
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 4px grey;
+        background: white;
+      }
+      .ant-checkbox-wrapper{
+        margin-right: 8px;
+        margin-left: 0;
+      }
+    }
+    .ant-scroll-number.ant-badge-count{
+      background: #3939e9!important;
+    }
+    .text-right{
+      text-align: right;
+    }
+  }
+  .settings-btn {
+    border-radius: 25px !important;
+    padding: 10px 30px;
+  }
+  .main-sidebar {
+    background: black;
+    min-width: 200px;
+    min-height: 100vh;
+    color: white;
+  }
+  .analytics-title {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+  .main-table{
+    th, td{
+      padding: 20px 4px;
+    }
+  }
+  .font-weight-bold{
+    font-weight: bold;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .app .main-sidebar {
+    display: none;
+  }
+}

@@ -1,0 +1,1 @@
+export const SET_COLUMN = "SET_COLUMN";
