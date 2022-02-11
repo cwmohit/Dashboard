@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "antd/dist/antd.css";
 import { DatePicker, Checkbox, Badge, Spin } from "antd";
+import { UpOutlined, DownOutlined } from "@ant-design/icons";
 import moment from "moment";
 const { RangePicker } = DatePicker;
 
@@ -67,7 +68,7 @@ function DynamicTable({
     _getTableData();
 
     let selected = selectedCol.map((item) => {
-    let index = availableColumns.findIndex((col) => col.slug === item);
+      let index = availableColumns.findIndex((col) => col.slug === item);
 
       return {
         ...availableColumns[index],
@@ -76,6 +77,57 @@ function DynamicTable({
 
     setColumns(selected);
   };
+
+  const onSorting = (col, order) => {
+    setIsLoading(true);
+    let index = availableColumns.findIndex((item) => item.name === col);
+    let selected = availableColumns[index];
+    console.log(selected, order);
+    let updatedData = data;
+    switch (order) {
+      case "ascending":
+        updatedData = updatedData.sort((a, b) => {
+          var nameA = a[selected.slug];
+          var nameB = b[selected.slug];
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+
+          // names must be equal
+          return 0;
+        });
+        setData(updatedData);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 50);
+        break;
+
+      case "descending":
+        updatedData = updatedData.sort((a, b) => {
+          var nameA = a[selected.slug];
+          var nameB = b[selected.slug];
+          if (nameA > nameB) {
+            return -1;
+          }
+          if (nameA < nameB) {
+            return 1;
+          }
+
+          // names must be equal
+          return 0;
+        });
+        setData(updatedData);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 50);
+        break;
+    }
+  };
+
+  console.log(data, isLoading)
 
   useEffect(() => {
     _getTableData();
@@ -145,6 +197,16 @@ function DynamicTable({
                   return (
                     <th key={index} scope="col">
                       {item?.name}
+                      <div className="sorting-icon-contain">
+                        <UpOutlined
+                          className="cursor-pointer"
+                          onClick={() => onSorting(item?.name, "ascending")}
+                        />
+                        <DownOutlined
+                          className="cursor-pointer"
+                          onClick={() => onSorting(item?.name, "descending")}
+                        />
+                      </div>
                     </th>
                   );
                 })}

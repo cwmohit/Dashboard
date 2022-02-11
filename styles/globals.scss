@@ -40,13 +40,26 @@ a {
         margin-right: 8px;
         margin-left: 0;
       }
+      .ant-checkbox-wrapper-checked{
+        border-right: 5px solid #3939e9;
+      }
     }
     .ant-scroll-number.ant-badge-count{
       background: #3939e9!important;
     }
-    .text-right{
-      text-align: right;
-    }
+  }
+  .text-right{
+    text-align: right;
+  }
+  .text-left{
+    text-align: left;
+  }
+  .text-justify{
+    text-align: justify;
+  }
+  .list-style-none{
+    list-style: none;
+    padding: 0;
   }
   .settings-btn {
     border-radius: 25px !important;
@@ -78,6 +91,14 @@ a {
       border-radius: 25px;
       padding: 10px 20px;
     }
+  }
+  .sorting-icon-contain{
+    float: left;
+    margin-right: 4px;
+    margin-top: -3px;
+  }
+  .cursor-pointer{
+    cursor: pointer;
   }
 }
 
