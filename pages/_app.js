@@ -7,6 +7,7 @@ const MyApp = ({ Component, pageProps }) => (
   <>
     <Head>
       <title>Greedy-Analytics</title>
+      <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta>
       <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
         rel="stylesheet"
